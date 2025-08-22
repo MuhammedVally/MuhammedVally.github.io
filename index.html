@@ -19,7 +19,6 @@
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 18px;
     }
-
     [data-theme="light"] {
       --bg: #f7fafc;
       --surface: #ffffff;
@@ -54,7 +53,7 @@
     .nav {
       max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;
     }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .4px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .4px; color: var(--text); text-decoration: none; }
     .brand .logo {
       width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center;
       background: linear-gradient(135deg, var(--brand), var(--brand-2));
@@ -88,9 +87,10 @@
     .btn {
       display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; border-radius: 12px; padding: 12px 16px; border: 1px solid var(--ring);
       background: var(--surface); color: var(--text);
+      transition: transform .18s ease, box-shadow .18s ease;
     }
     .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #001018; border: none; }
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
 
     .hero .aside { padding: 0; overflow: hidden; }
     .profile {
@@ -99,11 +99,19 @@
         radial-gradient(500px 220px at 30% 20%, rgba(118,208,255,.20), transparent),
         radial-gradient(500px 220px at 80% 70%, rgba(124,255,183,.16), transparent);
     }
+
+    /* Avatar now shows your real photo */
     .avatar {
       width: 210px; height: 210px; border-radius: 28px; border: 1px solid var(--ring); overflow: hidden; position: relative; box-shadow: var(--shadow);
       background: linear-gradient(135deg, rgba(118,208,255,.35), rgba(124,255,183,.25));
     }
-    .avatar svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    /* Use IMG instead of SVG placeholder */
+    .avatar img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block; border-radius: 28px;
+      transition: transform .3s ease;
+    }
+    .avatar img:hover { transform: scale(1.08); }
 
     /* Sections */
     section { margin-top: 34px; }
@@ -157,121 +165,93 @@
       <div class="card intro" aria-labelledby="intro-title">
         <div class="eyebrow">BSc Electrical Engineer</div>
         <h1 id="intro-title">Hi, I'm <span style="color: var(--brand)">Muhammed Vally</span>.</h1>
-        <p class="subtitle">I ama final year Electrical Engineering student at the University of Cape Town.I have completed courses in power electronics, control systems, networks and related areas that have equipped me with a strong technical foundation for the professional world. I am a driven individual with both technical expertise and well-developed soft skills that would aid in building a successful and impactful career. </p>
+        <p class="subtitle">
+          I am a final-year Electrical Engineering student at the University of Cape Town.
+          I have completed courses in power electronics, control systems, networks and related areas that have equipped me with a strong technical foundation for the professional world. I’m a driven individual with both technical expertise and well-developed soft skills, committed to building a successful and impactful career.
+        </p>
         <div class="cta">
           <a class="btn primary" href="#projects">View Projects</a>
           <a class="btn" href="#contact">Get in Touch</a>
           <a class="btn" href="Muhammed%20Vally%20CV.pdf" download="Muhammed_Vally_CV.pdf" title="Download CV">↓ Download CV</a>
-          <a class="btn" href="mailto:youremail@example.com" title="Email me">✉ Email</a>
+          <a class="btn" href="mailto:muhammedvally103@gmail.com" title="Email me">✉ Email</a>
         </div>
       </div>
       <aside class="card aside" aria-label="Profile">
         <div class="profile">
-          <div class="avatar" role="img" aria-label="Abstract avatar placeholder">
-            <!-- Minimal inline SVG avatar placeholder -->
-            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stop-color="rgba(255,255,255,.5)"/>
-                  <stop offset="100%" stop-color="rgba(255,255,255,.1)"/>
-                </linearGradient>
-              </defs>
-              <rect x="0" y="0" width="120" height="120" fill="url(#g)"/>
-              <circle cx="60" cy="44" r="22" fill="rgba(0,0,0,.2)"/>
-              <rect x="18" y="72" width="84" height="34" rx="18" fill="rgba(0,0,0,.2)"/>
-            </svg>
+          <div class="avatar">
+            <!-- Make sure this filename exists at the repo root -->
+            <img src="pic_muhammed.png" alt="Muhammed Vally">
           </div>
         </div>
       </aside>
     </section>
-<!-- PROJECTS -->
-<section id="projects">
-  <h2>Featured Projects</h2>
-  <div class="grid cols-3">
-    
-    <article class="card proj-card">
-      <div class="eyebrow">Thesis Project</div>
-      <h3>Impact of AC-Side Filters on Grid-Forming Converters</h3>
-      <p>
-        Investigated how different AC-side filter topologies (L, LC, LCL) affect the dynamic response of 
-        grid-forming (GFM) converters. The study analyzed voltage and frequency step responses, with a 
-        focus on rise time, settling time, and overshoot. Simulations were conducted in MATLAB/Simulink 
-        and validated using Typhoon HIL real-time hardware-in-the-loop (CHIL) testing.
-      </p>
-      <div class="tags">
-        <span class="tag">MATLAB/Simulink</span>
-        <span class="tag">Typhoon HIL</span>
-        <span class="tag">GFM Converters</span>
-        <span class="tag">AC-Side Filters</span>
-      </div>
-    </article>
 
-    <article class="card proj-card">
-      <div class="eyebrow">Robotics & Control</div>
-      <h3>Micromouse Maze-Solving Robot</h3>
-      <p>
-        Developed an autonomous robot capable of navigating and solving a 7x7 maze using infrared sensors, 
-        a flood-fill algorithm, and precise motion control. Implemented mapping, pathfinding, and position 
-        tracking with real-time decision-making on an STM32 microcontroller. Performance was enhanced through 
-        PID-based line following, IMU-assisted turning, and wall-sensing optimizations. Hardware improvements 
-        included shielding sensors from ambient light and adding additional downward sensors for reliable 
-        position tracking.
-      </p>
-      <div class="tags">
-        <span class="tag">STM32</span>
-        <span class="tag">PID Control</span>
-        <span class="tag">IMU</span>
-        <span class="tag">Flood-Fill Algorithm</span>
-      </div>
-    </article>
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="grid cols-3">
+        <article class="card proj-card">
+          <div class="eyebrow">Thesis Project</div>
+          <h3>Impact of AC-Side Filters on Grid-Forming Converters</h3>
+          <p>
+            Investigated how different AC-side filter topologies (L, LC, LCL) affect the dynamic response of GFM converters. Analyzed voltage/frequency step responses (rise time, settling time, overshoot). Simulations in MATLAB/Simulink, validated with Typhoon HIL CHIL testing.
+          </p>
+          <div class="tags">
+            <span class="tag">MATLAB/Simulink</span><span class="tag">Typhoon HIL</span><span class="tag">GFM Converters</span><span class="tag">AC-Side Filters</span>
+          </div>
+        </article>
 
-    <article class="card proj-card">
-      <div class="eyebrow">Software & Systems</div>
-      <h3>Penguin Protection System — User Interface</h3>
-      <p>
-        Designed and implemented the web-based user interface for a wildlife conservation system that detects 
-        and deters predators at the De Hoop penguin colony. Built a real-time dashboard to display predator logs, 
-        system status, and captured images. Integrated Firebase for secure authentication, cloud storage, and 
-        live database synchronization. Ensured reliable communication between detection, deterrent, and UI subsystems, 
-        with robust testing using Wireshark, live data validation, and user feedback surveys.
-      </p>
-      <div class="tags">
-        <span class="tag">Web Development</span>
-        <span class="tag">Firebase</span>
-        <span class="tag">Realtime Database</span>
-        <span class="tag">UI/UX</span>
-      </div>
-    </article>
+        <article class="card proj-card">
+          <div class="eyebrow">Robotics & Control</div>
+          <h3>Micromouse Maze-Solving Robot</h3>
+          <p>
+            Autonomous 7×7 maze robot with IR sensing, flood-fill pathfinding, and precise motion control on STM32. PID line following, IMU-assisted turning, wall-sensing optimisations; hardware tweaks for ambient-light shielding and better tracking.
+          </p>
+          <div class="tags">
+            <span class="tag">STM32</span><span class="tag">PID Control</span><span class="tag">IMU</span><span class="tag">Flood-Fill</span>
+          </div>
+        </article>
 
-  </div>
-</section>
-<!-- SKILLS -->
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="grid cols-3">
-    <div class="card info-card">
-      <div class="eyebrow">Engineering Software Proficiency</div>
-      <p>Experienced in industry-standard engineering tools for design, simulation, and analysis. Skilled in circuit design, power systems, and network simulation, with hands-on expertise in end-to-end workflows from modeling to validation.</p>
-      <div class="tags">
-        <span class="tag">KiCad</span><span class="tag">MATLAB/Simulink</span><span class="tag">SolidWorks</span><span class="tag">PowerWorld Simulator</span><span class="tag">Mininet</span>
+        <article class="card proj-card">
+          <div class="eyebrow">Software & Systems</div>
+          <h3>Penguin Protection System — User Interface</h3>
+          <p>
+            Real-time web dashboard for predator detection/deterrent at De Hoop penguin colony. Firebase auth/storage + live database; consistent subsystem comms; validated with Wireshark, data checks, and user feedback.
+          </p>
+          <div class="tags">
+            <span class="tag">Web</span><span class="tag">Firebase</span><span class="tag">Realtime DB</span><span class="tag">UI/UX</span>
+          </div>
+        </article>
       </div>
-    </div>
-    <div class="card info-card">
-      <div class="eyebrow">Programming & Embedded Systems</div>
-      <p>Proficient in coding across multiple languages and engineering contexts. Completed formal coursework in Python and Java, with practical experience in C for embedded systems, controls, and real-time applications. Comfortable bridging hardware and software for efficient, reliable solutions.</p>
-      <div class="tags">
-        <span class="tag">Python</span><span class="tag">Java</span><span class="tag">C</span><span class="tag">Embedded Systems</span><span class="tag">Controls</span>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="grid cols-3">
+        <div class="card info-card">
+          <div class="eyebrow">Engineering Software Proficiency</div>
+          <p>Experienced with design, simulation, and analysis across power/circuits/networks; comfortable taking models to validated results.</p>
+          <div class="tags">
+            <span class="tag">KiCad</span><span class="tag">MATLAB/Simulink</span><span class="tag">SolidWorks</span><span class="tag">PowerWorld</span><span class="tag">Mininet</span>
+          </div>
+        </div>
+        <div class="card info-card">
+          <div class="eyebrow">Programming & Embedded Systems</div>
+          <p>Python & Java coursework; C for embedded control and real-time work; bridging hardware–software pragmatically.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Java</span><span class="tag">C</span><span class="tag">Embedded</span><span class="tag">Controls</span>
+          </div>
+        </div>
+        <div class="card info-card">
+          <div class="eyebrow">Teamwork & Communication</div>
+          <p>Clear communicator and collaborator; comfortable leading initiatives, aligning a team, and delivering outcomes.</p>
+          <div class="tags">
+            <span class="tag">Leadership</span><span class="tag">Collaboration</span><span class="tag">Communication</span><span class="tag">Teamwork</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card info-card">
-      <div class="eyebrow">Teamwork & Communication</div>
-      <p>Excellent communicator and collaborative team player with a passion for working with others to achieve meaningful results. Skilled at leading initiatives, contributing to diverse teams, and fostering strong professional relationships to drive innovation and success.</p>
-      <div class="tags">
-        <span class="tag">Leadership</span><span class="tag">Collaboration</span><span class="tag">Communication</span><span class="tag">Teamwork</span>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- EXPERIENCE -->
     <section id="experience">
@@ -281,13 +261,13 @@
           <div class="row">
             <strong>Online Tutor — ITUTORSTORE.COM</strong>
             <div class="when">December 2023 – Current</div>
-            <p>Providing tutoring services to varied educational curricula on an international online learning platform based in Dubai.<br>
+            <p>Providing tutoring across varied curricula on an international platform (Dubai-based).<br>
             Reference: Zaheera Kala (+971 55 372 7156)</p>
           </div>
           <div class="row">
             <strong>Junior Engineer — TRIOCON CONSULTING ENGINEERS</strong>
             <div class="when">November 2024 – February 2025</div>
-            <p>Involvement in the design of lighting and power installation layouts and assisted with managing projects. Responsibilities included conducting quality checks, preparing Bills of Quantities (BoQ), and compiling progress reports for the project manager. Regular performance of site visits to support inspection and ensure compliance with project requirements.</p>
+            <p>Assisted with lighting/power layout design and project management tasks: QA checks, BoQs, progress reports, and site inspections to ensure compliance.</p>
           </div>
         </div>
       </div>
@@ -300,96 +280,38 @@
         <div class="card info-card">
           <strong>BSc (Hons) Electrical Engineering, University of Cape Town</strong>
           <div class="when">2022 – Current</div>
-          <p>Successfully progressing through a four-year degree with all modules passed to date, demonstrating consistent academic performance and steady progress across all years and expected to graduate on time, December 2025.</p>
+          <p>Consistent academic performance with all modules passed to date; on track to graduate December 2025.</p>
         </div>
         <div class="card info-card">
-          <strong>International A-Level and IGCSE, Horizon International School, Dubai</strong>
+          <strong>International A-Level & IGCSE — Horizon International School, Dubai</strong>
           <div class="when">2017 – 2021</div>
-          <p>International A-Level results: Mathematics - A*, Physics – B, English Literature – A<br>
-          IGCSE results: English Language – 9, English Literature – 9, Mathematics – 9</p>
+          <p>A-Level: Mathematics A*, Physics B, English Literature A<br>
+             IGCSE: English Language 9, English Literature 9, Mathematics 9</p>
         </div>
       </div>
     </section>
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="grid cols-2">
-    <div class="card info-card">
-      <p>Open to graduate roles and junior electrical/embedded positions. Best reached via email or LinkedIn.</p>
-      <div class="tags">
-        <a class="btn" href="mailto:muhammedvally103@gmail.com">✉ muhammedvally103@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/muhammedvally/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
-        <a class="btn" href="https://github.com/MuhammedVally" target="_blank" rel="noopener noreferrer"> GitHub</a>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="grid cols-2">
+        <div class="card info-card">
+          <p>Open to graduate roles and junior electrical/embedded positions. Best reached via email or LinkedIn.</p>
+          <div class="tags">
+            <a class="btn" href="mailto:muhammedvally103@gmail.com">✉ muhammedvally103@gmail.com</a>
+            <a class="btn" href="https://www.linkedin.com/in/muhammedvally/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+            <a class="btn" href="https://github.com/MuhammedVally" target="_blank" rel="noopener noreferrer"> GitHub</a>
+          </div>
+        </div>
+        <form class="card info-card" onsubmit="event.preventDefault(); alert('Thanks! Your message has been prepared in your email client.'); window.location.href = `mailto:muhammedvally103@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('message').value)}`;">
+          <label class="eyebrow" for="subject">Quick Message</label>
+          <input id="subject" name="subject" required placeholder="Subject" style="margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);" />
+          <textarea id="message" name="message" required placeholder="Your message" rows="4" style="resize:vertical; margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);"></textarea>
+          <button class="btn primary" type="submit">Send</button>
+        </form>
       </div>
-    </div>
-    <form class="card info-card" onsubmit="event.preventDefault(); alert('Thanks! Your message has been prepared for sending via your email client.'); window.location.href = `mailto:muhammedvally103@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('message').value)}`;">
-      <label class="eyebrow" for="subject">Quick Message</label>
-      <input id="subject" name="subject" required placeholder="Subject" style="margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);" />
-      <textarea id="message" name="message" required placeholder="Your message" rows="4" style="resize:vertical; margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);"></textarea>
-      <button class="btn primary" type="submit">Send</button>
-    </form>
-  </div>
-</section>
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="grid cols-2">
-    <div class="card info-card">
-      <p>Open to graduate roles and junior electrical/embedded positions. Best reached via email or LinkedIn.</p>
-      <div class="tags">
-        <a class="btn" href="mailto:muhammedvally103@gmail.com">✉ muhammedvally103@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/muhammedvally/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
-        <a class="btn" href="https://github.com/MuhammedVally" target="_blank" rel="noopener noreferrer"> GitHub</a>
-      </div>
-    </div>
-    <form class="card info-card" onsubmit="event.preventDefault(); alert('Thanks! Your message has been prepared for sending via your email client.'); window.location.href = `mailto:muhammedvally103@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('message').value)}`;">
-      <label class="eyebrow" for="subject">Quick Message</label>
-      <input id="subject" name="subject" required placeholder="Subject" style="margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);" />
-      <textarea id="message" name="message" required placeholder="Your message" rows="4" style="resize:vertical; margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);"></textarea>
-      <button class="btn primary" type="submit">Send</button>
-    </form>
-  </div>
-</section>
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="grid cols-2">
-    <div class="card info-card">
-      <p>Open to graduate roles and junior electrical/embedded positions. Best reached via email or LinkedIn.</p>
-      <div class="tags">
-        <a class="btn" href="mailto:muhammedvally103@gmail.com">✉ muhammedvally103@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/muhammedvally/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
-        <a class="btn" href="https://github.com/MuhammedVally" target="_blank" rel="noopener noreferrer"> GitHub</a>
-      </div>
-    </div>
-    <form class="card info-card" onsubmit="event.preventDefault(); alert('Thanks! Your message has been prepared for sending via your email client.'); window.location.href = `mailto:muhammedvally103@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('message').value)}`;">
-      <label class="eyebrow" for="subject">Quick Message</label>
-      <input id="subject" name="subject" required placeholder="Subject" style="margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);" />
-      <textarea id="message" name="message" required placeholder="Your message" rows="4" style="resize:vertical; margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);"></textarea>
-      <button class="btn primary" type="submit">Send</button>
-    </form>
-  </div>
-</section>
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="grid cols-2">
-    <div class="card info-card">
-      <p>Open to graduate roles and junior electrical/embedded positions. Best reached via email or LinkedIn.</p>
-      <div class="tags">
-        <a class="btn" href="mailto:muhammedvally103@gmail.com">✉ muhammedvally103@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/muhammedvally/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
-        <a class="btn" href="https://github.com/MuhammedVally" target="_blank" rel="noopener noreferrer"> GitHub</a>
-      </div>
-    </div>
-    <form class="card info-card" onsubmit="event.preventDefault(); alert('Thanks! Your message has been prepared for sending via your email client.'); window.location.href = `mailto:muhammedvally103@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('message').value)}`;">
-      <label class="eyebrow" for="subject">Quick Message</label>
-      <input id="subject" name="subject" required placeholder="Subject" style="margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);" />
-      <textarea id="message" name="message" required placeholder="Your message" rows="4" style="resize:vertical; margin:8px 0; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring); background: var(--surface); color: var(--text);"></textarea>
-      <button class="btn primary" type="submit">Send</button>
-    </form>
-  </div>
-</section>
+    </section>
+  </main>
 
   <footer>
     <div class="foot">
@@ -418,8 +340,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
